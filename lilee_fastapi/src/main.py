@@ -3,9 +3,11 @@ from uvicorn import run as uvicorn_run
 from fastapi.middleware.cors import CORSMiddleware
 
 from controllers.users import users_statistic_router
+from controllers.groups import groups_statistic_router
 
 app = FastAPI(title='LiLee Web Server APIs', docs_url='/swagger')
 app.include_router(users_statistic_router)
+app.include_router(groups_statistic_router)
 
 origins = [
     "http://localhost",
