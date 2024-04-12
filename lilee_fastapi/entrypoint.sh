@@ -8,6 +8,10 @@ echo "MySQL started"
 
 alembic upgrade head
 
-python populate_data.py
+sleep 5
 
-exec uvicorn app:app --host 0.0.0.0 --port 9000
+python data/populate_data.py
+
+cd src
+
+exec uvicorn main:app --host 0.0.0.0 --port 9000
