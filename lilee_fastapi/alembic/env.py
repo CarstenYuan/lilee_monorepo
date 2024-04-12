@@ -4,22 +4,9 @@ from sqlalchemy import pool
 from alembic import context
 
 from sqlalchemy_utils import database_exists, create_database
-import os
-import configparser
 
 
-# read db.config
-config_file = "./db.config"
-db_config = configparser.ConfigParser()
-db_config.read(config_file)
-
-username = db_config['database']['username']
-password = db_config['database']['password']
-host = db_config['database']['host']
-port = db_config['database']['port']
-dbname = db_config['database']['dbname']
-
-sqlalchemy_url = f"mysql+pymysql://{username}:{password}@{host}:{port}/{dbname}"
+sqlalchemy_url = f"mysql+pymysql://root:1qaz2wsx@mysqlDB:3306/lilee"
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -34,7 +21,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from models.base import Base
+from src.repositories.models.base import Base
 # from models.users import Users
 target_metadata = Base.metadata
 # print(target_metadata.tables)
