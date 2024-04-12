@@ -22,8 +22,8 @@ class UpdateUserInfoRequest(BaseModel):
 
 
 @users_statistic_router.post("/addUser", tags=users_tag)
-def add_user(add_user_request: AddUserRequest = Body(...), service: UserService=Depends(get_user_service)):
-    return service.add_user(add_user_request)
+def add_user(add_request: AddUserRequest = Body(...), service: UserService=Depends(get_user_service)):
+    return service.add_user(add_request)
 
 
 @users_statistic_router.delete("/deleteUser/{id}", tags=users_tag)
