@@ -1,3 +1,4 @@
+import random
 from sqlalchemy.orm import Session
 from repositories.models.users_model import Users
 from repositories.models.groups_model import Groups
@@ -31,3 +32,30 @@ class UserRepository:
         if filter:
             query = query.filter(Users.name.like(f"%{filter}%"))
         return query.all()
+
+    def update_activate_status(self, id, is_activate):
+        user = self.get_single_user_by_id(id)
+        if user:
+            user.is_activate = is_activate
+            user.modifier = random.choice(["Alice", "Bob", "Charlie", "David", "Eve"])  # Mock modifiers
+            self.db.commit()
+            return user
+        return None
+    
+    def update_user_info(self, id, update_data: dict):
+        user = self.get_single_user_by_id(id)
+        if user:
+            has_changes = False
+
+            for key, new_value in update_data.items():
+                if getattr(user, key) != new_value:
+                    setattr(user, key, new_value)
+                    has_changes = True
+            if has_changes:
+                modifier = random.choice(["Alice", "Bob", "Charlie", "David", "Eve"])  # Mock modifiers
+                user.modifier = modifier
+                self.db.commit()
+            else:
+                self.db.rollback()
+            return user
+        return None

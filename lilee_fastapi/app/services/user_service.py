@@ -39,3 +39,23 @@ class UserService:
     
     def get_all_users(self, filter):
         return self.user_repository.get_all_users(filter=filter)
+
+    def update_is_activate(self, id, is_activate):
+        user = self.user_repository.update_activate_status(id, is_activate)
+        if user:
+            return user
+        raise HTTPException(status_code=404, detail=f"User with id {id} does not exist.")
+
+    def update_user_info(self, id, update_data: BaseModel):
+        update_dict = update_data.dict()
+        group_id = update_dict['group_id']
+
+        if group_id == 0:
+            update_dict['group_id'] = None
+        if group_id and not (self.is_group_activated(group_id)):
+            raise HTTPException(status_code=400, detail="You cannot join a deactivated group.")
+        
+        user = self.user_repository.update_user_info(id, update_dict)
+        if user:
+            return user
+        raise HTTPException(status_code=404, detail=f"User with id {id} does not exist.")
