@@ -1,7 +1,7 @@
 import json
 import random
 from models import Base, Users, Groups
-from database import MySQLDB
+from lilee_fastapi.app.repositories.database import MySQLDB
 
 
 def populate_data(db, data):

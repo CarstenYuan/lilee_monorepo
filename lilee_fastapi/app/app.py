@@ -1,4 +1,4 @@
-from apis import router
+from controllers import router
 from fastapi import FastAPI
 from uvicorn import run as uvicorn_run
 from fastapi.middleware.cors import CORSMiddleware
