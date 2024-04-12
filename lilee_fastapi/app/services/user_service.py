@@ -1,7 +1,8 @@
-from fastapi import HTTPException
-from app.repositories.user_repository import UserRepository
-from app.repositories.models.users_model import Users
 from pydantic import BaseModel
+from fastapi import HTTPException
+from repositories.user_repository import UserRepository
+from repositories.models.users_model import Users
+
 
 
 class UserService:
@@ -24,3 +25,17 @@ class UserService:
         if group:
             return group.is_activate
         raise HTTPException(status_code=404, detail=f"Group with id {group_id} does not exist.")
+
+    def delete_user(self, id):
+        if self.user_repository.get_single_user_by_id(id):
+            return self.user_repository.delete_user(id)
+        raise HTTPException(status_code=404, detail=f"User with id {id} does not exist.")
+    
+    def get_single_user(self, id):
+        user = self.user_repository.get_single_user_by_id(id)
+        if user:
+            return user
+        raise HTTPException(status_code=404, detail=f"User with id {id} does not exist.")
+    
+    def get_all_users(self, filter):
+        return self.user_repository.get_all_users(filter=filter)
