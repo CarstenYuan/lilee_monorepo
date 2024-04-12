@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from controllers.users import users_statistic_router
+from app.controllers.users import users_statistic_router
 # from apis.groups import groups_statistic_router
 
 router = APIRouter()
