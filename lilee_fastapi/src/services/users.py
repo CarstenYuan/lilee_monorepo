@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from fastapi import HTTPException
-from repositories.user_repository import UserRepository
+from repositories.users import UserRepository
 from repositories.models.users_model import Users
 
 

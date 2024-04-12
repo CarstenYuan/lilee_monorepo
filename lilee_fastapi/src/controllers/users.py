@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Body, Query
 from pydantic import BaseModel, Field
 from typing import Optional
 
-from services.user_service import UserService
+from services.users import UserService
 from common.dependencies import get_user_service
 
 
