@@ -12,7 +12,7 @@ sys.path.append(parent_dir)
 from src.repositories.models.base import Base
 from src.repositories.models.groups_model import Groups
 from src.repositories.models.users_model import Users
-from src.repositories.database import SessionLocal
+from common.database import SessionLocal
 
 
 def populate_data(db, data) -> None:

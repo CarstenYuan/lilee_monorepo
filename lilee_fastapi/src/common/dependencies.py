@@ -1,6 +1,6 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from repositories.database import get_db
+from common.database import get_db
 from repositories.user_repository import UserRepository
 from services.user_service import UserService
 

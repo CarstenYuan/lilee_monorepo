@@ -15,7 +15,7 @@ add_user has 4 senarios:
 """
 
 
-@patch("repositories.database.SessionLocal")
+@patch("common.database.SessionLocal")
 def test_add_user_with_valid_group(mock_session):
     # Act
     response = client.post("/addUser", json={"name": "Alice", "group_id": 1})
@@ -24,7 +24,7 @@ def test_add_user_with_valid_group(mock_session):
     # TODO: assert body Alice
 
 
-# @patch('repositories.database.SessionLocal')
+# @patch('common.database.SessionLocal')
 # def test_add_user_without_group(mock_session):
 #     # Act
 #     response = client.post("/addUser", json={"name": "Alice", "group_id": None})
@@ -32,7 +32,7 @@ def test_add_user_with_valid_group(mock_session):
 #     assert response.status_code == 200
 
 
-@patch("repositories.database.SessionLocal")
+@patch("common.database.SessionLocal")
 @patch("services.user_service.UserService.is_group_activated")
 def test_add_user_with_deavtivated_group(mock_is_group_activated, mock_session):
     # Arrange
@@ -43,7 +43,7 @@ def test_add_user_with_deavtivated_group(mock_is_group_activated, mock_session):
     assert response.status_code == 400
 
 
-@patch("repositories.database.SessionLocal")
+@patch("common.database.SessionLocal")
 @patch("repositories.user_repository.UserRepository.get_single_group")
 def test_add_user_with_inexisted_group(mock_get_single_group, mock_session):
     # Arrange
