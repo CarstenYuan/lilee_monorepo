@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends, Body
+from fastapi import APIRouter, Depends, Body, Query
 from pydantic import BaseModel, Field
 from typing import Optional
 
-from app.services.user_service import UserService
-from app.dependencies import get_user_service
+from services.user_service import UserService
+from dependencies import get_user_service
 
 
 users_statistic_router = APIRouter()
@@ -19,3 +19,18 @@ class AddUserRequest(BaseModel):
 def add_user(add_user_request: AddUserRequest = Body(...), service: UserService=Depends(get_user_service)):
     user = service.add_user(add_user_request)
     return user
+
+
+@users_statistic_router.delete("/deleteUser/{id}", tags=users_tag)
+def delete_user(id, service: UserService=Depends(get_user_service)):
+    return service.delete_user(id)
+
+
+@users_statistic_router.get("/getSingleUser/{id}", tags=users_tag)
+def get_single_user(id, service: UserService=Depends(get_user_service)):
+     return service.get_single_user(id)
+
+
+@users_statistic_router.get("/getAllUsers", tags=users_tag)
+def get_all_users(filter: Optional[str] = Query(None), service: UserService=Depends(get_user_service)):
+    return service.get_all_users(filter)
