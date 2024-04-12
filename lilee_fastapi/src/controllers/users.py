@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 from services.user_service import UserService
-from dependencies import get_user_service
+from common.dependencies import get_user_service
 
 
 users_statistic_router = APIRouter()
