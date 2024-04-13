@@ -43,12 +43,12 @@
 # run docker-compose.yml
 > docker-compose up -d
 ```
+- When you run docker-compose, it will populate 20 groups and 90 users.
 ---
 ### Testing
 #### Using FastAPI's swagger
-```
-Pending link to a file
-```
+[Test steps on FastAPI's swagger for Lilee project](https://docs.google.com/document/d/1wrQXcUyLsucOAMaBRd_eFOyPEB4xaptl4ITwmUukbWw/edit?usp=sharing)
+
 #### Using Vue website
 ```
 Pending link to a file
