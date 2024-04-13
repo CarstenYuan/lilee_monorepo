@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from fastapi import HTTPException
 from repositories.users import UserRepository
+from repositories.groups import GroupRepository
 from repositories.models.users_model import Users
 
 
@@ -22,7 +23,8 @@ class UserService:
         return self.user_repository.add_user(user_dict)
 
     def is_group_activated(self, group_id):
-        group = self.user_repository.get_single_group(group_id)
+        group_repository = GroupRepository()
+        group = group_repository.get_single_group(group_id)
         if group:
             return group.is_activate
         raise HTTPException(

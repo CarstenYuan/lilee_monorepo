@@ -18,9 +18,6 @@ class UserRepository:
         self.db.refresh(new_user)
         return new_user
 
-    def get_single_group(self, group_id):
-        return self.db.query(Groups).filter(Groups.id == group_id).one_or_none()
-
     def delete_user(self, id):
         user = self.get_single_user(id)
         self.db.delete(user)
