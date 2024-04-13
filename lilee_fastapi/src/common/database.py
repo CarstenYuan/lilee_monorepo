@@ -1,14 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-
-engine_url = "mysql+pymysql://root:1qaz2wsx@localhost:3306/lilee"  # for local tests
-# engine_url = "mysql+pymysql://root:1qaz2wsx@mysqlDB:3306/lilee"
-# engine_url = "mysql+pymysql://root:1qaz2wsx@ABCDEFGHIJKLMNOPQRSTUVWXYZ:3306/lilee"  # for disconnect to db
+# engine_url = "mysql+pymysql://root:1qaz2wsx@ABCDEFGHIJKLMNOPQRSTUVWXYZ:3306/lilee"  # to disconnect db
+# engine_url = "mysql+pymysql://root:1qaz2wsx@localhost:3306/lilee"  # for local tests
+engine_url = "mysql+pymysql://root:1qaz2wsx@mysqlDB:3306/lilee"
 
 
 engine = create_engine(engine_url)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, expire_on_commit=False)
+SessionLocal = sessionmaker(
+    autocommit=False, autoflush=False, bind=engine, expire_on_commit=False
+)
 
 
 def get_db():
