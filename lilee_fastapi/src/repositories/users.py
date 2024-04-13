@@ -28,7 +28,7 @@ class UserRepository:
 
     def get_users(self, username_filter: str = None):
         query = self.db.query(Users)
-        if filter:
+        if username_filter:
             query = query.filter(Users.name.like(f"%{username_filter}%"))
         return query.all()
 
