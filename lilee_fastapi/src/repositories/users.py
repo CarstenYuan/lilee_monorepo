@@ -30,7 +30,7 @@ class UserRepository:
     def get_single_user(self, id):
         return self.db.query(Users).filter(Users.id == id).one_or_none()
 
-    def get_all_users(self, filter: str = None):
+    def get_users(self, filter: str = None):
         query = self.db.query(Users)
         if filter:
             query = query.filter(Users.name.like(f"%{filter}%"))
