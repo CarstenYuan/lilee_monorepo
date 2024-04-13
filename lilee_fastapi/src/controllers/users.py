@@ -52,9 +52,9 @@ def get_all_users(
 
 
 @users_statistic_router.put("/updateUserInfo/{id}", tags=users_tag)
-def update_user_info(
+def update_user(
     id: int,
     update_request: UpdateUserInfoRequest = Body(...),
     service: UserService = Depends(get_user_service),
 ):
-    return service.update_info(id, update_request)
+    return service.update_user(id, update_request)

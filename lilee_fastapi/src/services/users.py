@@ -76,7 +76,7 @@ class UserService:
             )
         return users_list
 
-    def update_info(self, id, update_data: BaseModel):
+    def update_user(self, id, update_data: BaseModel):
         update_dict = update_data.dict()
         group_id = update_dict["group_id"]
         user = self.user_repository.get_single_user(id)
@@ -98,5 +98,5 @@ class UserService:
                 has_changes = True
                 break
         if has_changes:
-            return self.user_repository.update_user_info(id, update_dict)
+            return self.user_repository.update_user(id, update_dict)
         return None

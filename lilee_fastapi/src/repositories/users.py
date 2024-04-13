@@ -36,7 +36,7 @@ class UserRepository:
             query = query.filter(Users.name.like(f"%{filter}%"))
         return query.all()
 
-    def update_user_info(self, id, update_data: dict):
+    def update_user(self, id, update_data: dict):
         user = self.get_single_user(id)
         user.name = update_data["name"]
         user.group_id = update_data["group_id"]
