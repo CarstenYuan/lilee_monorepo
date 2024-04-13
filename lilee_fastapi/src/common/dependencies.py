@@ -7,15 +7,16 @@ from services.users import UserService
 from services.groups import GroupService
 
 
-def get_user_service(db: Session = Depends(get_session)) -> UserService:
-    user_repository = UserRepository(db)
-    group_repository = GroupRepository(db)
-    group_service = GroupService(group_repository)
-    return UserService(user_repository, group_service)
-
-
 def get_group_service(db: Session = Depends(get_session)) -> GroupService:
     group_repository = GroupRepository(db)
     user_repository = UserRepository(db)
-    user_service = UserService(user_repository)
+    user_service = user_repository
     return GroupService(group_repository, user_service)
+
+
+def get_user_service(
+    db: Session = Depends(get_session),
+    group_service: GroupService = Depends(get_group_service),
+) -> UserService:
+    user_repository = UserRepository(db)
+    return UserService(user_repository, group_service)
