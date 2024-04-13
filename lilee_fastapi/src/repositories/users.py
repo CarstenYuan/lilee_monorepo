@@ -19,12 +19,12 @@ class UserRepository:
         return self.db.query(Groups).filter(Groups.id == group_id).one_or_none()
 
     def delete_user(self, id):
-        user = self.get_single_user_by_id(id)
+        user = self.get_single_user(id)
         self.db.delete(user)
         self.db.commit()
         return user
 
-    def get_single_user_by_id(self, id):
+    def get_single_user(self, id):
         return self.db.query(Users).filter(Users.id == id).one_or_none()
     
     def get_all_users(self, filter: str = None):
