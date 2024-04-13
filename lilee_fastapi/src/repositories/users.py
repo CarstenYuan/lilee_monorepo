@@ -43,3 +43,6 @@ class UserRepository:
         )  # Mock modifiers
         self.db.commit()
         return user
+    
+    def has_member(self, group_id) -> bool:
+        return self.db.query(Users).filter(Users.group_id == group_id).count() != 0

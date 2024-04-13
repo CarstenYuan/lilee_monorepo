@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from fastapi import HTTPException
+from repositories.users import UserRepository
 from repositories.groups import GroupRepository
 from repositories.models.groups_model import Groups
 
@@ -17,15 +18,12 @@ class GroupService:
             raise HTTPException(
                 status_code=404, detail=f"Group with id {id} does not exist."
             )
-        if self.has_member(id):
+        if UserRepository().has_member(id):
             raise HTTPException(
                 status_code=400,
                 detail="Group cannot be deleted because it has members.",
             )
         return self.group_repository.delete_group(id)
-
-    def has_member(self, id):
-        return self.group_repository.has_member(id)
 
     def get_single_group(self, id):
         group = self.group_repository.get_single_group(id)
@@ -46,7 +44,7 @@ class GroupService:
             raise HTTPException(
                 status_code=404, detail=f"Group with id {id} does not exist."
             )
-        if (not update_dict["is_activate"]) and self.has_member(id):
+        if (not update_dict["is_activate"]) and UserRepository().has_member(id):
             raise HTTPException(
                 status_code=400,
                 detail="Group cannot be deactivated because it has members.",

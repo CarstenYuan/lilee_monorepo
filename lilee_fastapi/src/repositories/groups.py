@@ -24,9 +24,6 @@ class GroupRepository:
         self.db.commit()
         return group
 
-    def has_member(self, id) -> bool:
-        return self.db.query(Users).filter(Users.group_id == id).count() != 0
-
     def get_single_group(self, id):
         return self.db.query(Groups).filter(Groups.id == id).one_or_none()
 
