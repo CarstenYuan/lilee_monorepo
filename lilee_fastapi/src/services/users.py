@@ -63,29 +63,18 @@ class UserService:
 
             users_list.append(
                 {
-                'id': curr_id,
-                'name': curr_name,
-                'group_id': curr_group_id,
-                'group': curr_group_name,
-
-                'creator': curr_creator,
-                'createdTime': curr_createdTime,
-                'modifier': curr_modifier,
-                'modifiedTime': curr_modifiedTime,
-                'is_activate': curr_is_activate
+                    "id": curr_id,
+                    "name": curr_name,
+                    "group_id": curr_group_id,
+                    "group": curr_group_name,
+                    "creator": curr_creator,
+                    "createdTime": curr_createdTime,
+                    "modifier": curr_modifier,
+                    "modifiedTime": curr_modifiedTime,
+                    "is_activate": curr_is_activate,
                 }
             )
         return users_list
-
-        return users
-            
-
-    def update_activate_status(self, id, is_activate):
-        if not self.user_repository.get_single_user(id):
-            raise HTTPException(
-                status_code=404, detail=f"User with id {id} does not exist."
-            )
-        return self.user_repository.update_activate_status(id, is_activate)
 
     def update_info(self, id, update_data: BaseModel):
         update_dict = update_data.dict()

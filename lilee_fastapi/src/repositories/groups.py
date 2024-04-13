@@ -10,7 +10,9 @@ class GroupRepository:
 
     def add_group(self, group_data: dict) -> Groups:
         new_group = Groups(**group_data)
-        new_group.creator = random.choice(["Admin", "Jay Chou", "Eason Chen", "Carsten Yuan"])
+        new_group.creator = random.choice(
+            ["Admin", "Jay Chou", "Eason Chen", "Carsten Yuan"]
+        )
         self.db.add(new_group)
         self.db.commit()
         self.db.refresh(new_group)
@@ -33,15 +35,6 @@ class GroupRepository:
 
     def get_active_group(self):
         return self.db.query(Groups).filter(Groups.is_activate == 1).all()
-
-    def update_activate_status(self, id, is_activate):
-        group = self.get_single_group(id)
-        group.is_activate = is_activate
-        group.modifier = random.choice(
-            ["Alice", "Bob", "Charlie", "David", "Eve"]
-        )  # Mock modifiers
-        self.db.commit()
-        return group
 
     def update_info(self, id, update_data: dict):
         group = self.get_single_group(id)

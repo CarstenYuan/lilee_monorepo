@@ -51,13 +51,6 @@ def get_all_users(
     return service.get_all_users(filter)
 
 
-@users_statistic_router.patch("/updateIsUserActivate/{id}", tags=users_tag)
-def update_activate_status(
-    id: int, is_activate: bool, service: UserService = Depends(get_user_service)
-):
-    return service.update_activate_status(id, is_activate)
-
-
 @users_statistic_router.put("/updateUserInfo/{id}", tags=users_tag)
 def update_user_info(
     id: int,

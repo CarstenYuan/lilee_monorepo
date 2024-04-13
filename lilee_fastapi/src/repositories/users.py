@@ -10,7 +10,9 @@ class UserRepository:
 
     def add_user(self, user_data: dict) -> Users:
         new_user = Users(**user_data)
-        new_user.creator = random.choice(["Admin", "Jay Chou", "Eason Chen", "Carsten Yuan"])
+        new_user.creator = random.choice(
+            ["Admin", "Jay Chou", "Eason Chen", "Carsten Yuan"]
+        )
         self.db.add(new_user)
         self.db.commit()
         self.db.refresh(new_user)
@@ -33,15 +35,6 @@ class UserRepository:
         if filter:
             query = query.filter(Users.name.like(f"%{filter}%"))
         return query.all()
-
-    def update_activate_status(self, id, is_activate):
-        user = self.get_single_user(id)
-        user.is_activate = is_activate
-        user.modifier = random.choice(
-            ["Alice", "Bob", "Charlie", "David", "Eve"]
-        )  # Mock modifiers
-        self.db.commit()
-        return user
 
     def update_user_info(self, id, update_data: dict):
         user = self.get_single_user(id)
