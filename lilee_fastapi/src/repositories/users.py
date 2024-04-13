@@ -1,7 +1,6 @@
 import random
 from sqlalchemy.orm import Session
 from repositories.models.users_model import Users
-from repositories.models.groups_model import Groups
 
 
 class UserRepository:
@@ -43,6 +42,6 @@ class UserRepository:
         )  # Mock modifiers
         self.db.commit()
         return user
-    
-    def has_member(self, group_id) -> bool:
+
+    def has_user(self, group_id) -> bool:
         return self.db.query(Users).filter(Users.group_id == group_id).count() != 0
