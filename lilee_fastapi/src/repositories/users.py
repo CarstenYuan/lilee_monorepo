@@ -10,6 +10,7 @@ class UserRepository:
 
     def add_user(self, user_data: dict) -> Users:
         new_user = Users(**user_data)
+        new_user.creator = random.choice(["Admin", "Jay Chou", "Eason Chen", "Carsten Yuan"])
         self.db.add(new_user)
         self.db.commit()
         self.db.refresh(new_user)

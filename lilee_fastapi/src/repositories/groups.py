@@ -10,6 +10,7 @@ class GroupRepository:
 
     def add_group(self, group_data: dict) -> Groups:
         new_group = Groups(**group_data)
+        new_group.creator = random.choice(["Admin", "Jay Chou", "Eason Chen", "Carsten Yuan"])
         self.db.add(new_group)
         self.db.commit()
         self.db.refresh(new_group)
