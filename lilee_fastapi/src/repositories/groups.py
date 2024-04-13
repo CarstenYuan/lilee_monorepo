@@ -1,6 +1,5 @@
 import random
 from sqlalchemy.orm import Session
-from repositories.models.users_model import Users
 from repositories.models.groups_model import Groups
 
 
