@@ -35,11 +35,8 @@ class GroupService:
             status_code=404, detail=f"Group with id {id} does not exist."
         )
 
-    def get_all_groups(self):
-        return self.group_repository.get_all_groups()
-
-    def get_active_group(self):
-        return self.group_repository.get_active_group()
+    def get_groups(self, activated_only=False):
+        return self.group_repository.get_groups(activated_only)
 
     def update_group(self, id, update_data: BaseModel):
         update_dict = update_data.dict()

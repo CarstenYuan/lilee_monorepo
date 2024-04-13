@@ -30,11 +30,10 @@ class GroupRepository:
     def get_single_group(self, id):
         return self.db.query(Groups).filter(Groups.id == id).one_or_none()
 
-    def get_all_groups(self):
+    def get_groups(self, activated_only):
+        if activated_only:
+            return self.db.query(Groups).filter(Groups.is_activate == 1).all()
         return self.db.query(Groups).all()
-
-    def get_active_group(self):
-        return self.db.query(Groups).filter(Groups.is_activate == 1).all()
 
     def update_group(self, id, update_data: dict):
         group = self.get_single_group(id)

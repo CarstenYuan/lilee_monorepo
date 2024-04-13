@@ -41,12 +41,12 @@ def get_single_group(id: int, service: GroupService = Depends(get_group_service)
 
 @groups_statistic_router.get("/getAllGroups", tags=groups_tag)
 def get_all_groups(service: GroupService = Depends(get_group_service)):
-    return service.get_all_groups()
+    return service.get_groups()
 
 
 @groups_statistic_router.get("/getActiveGroups", tags=groups_tag)
 def get_active_groups(service: GroupService = Depends(get_group_service)):
-    return service.get_active_group()
+    return service.get_groups(activated_only=True)
 
 
 @groups_statistic_router.put("/updateGroupInfo/{id}", tags=groups_tag)
