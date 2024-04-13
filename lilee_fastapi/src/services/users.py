@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from fastapi import HTTPException
 from repositories.users import UserRepository
 from repositories.models.users_model import Users
-
 from services.groups import GroupService
 
 
@@ -40,15 +39,18 @@ class UserService:
         )
 
     def get_users(self, username_filter):
-        users = self.user_repository.get_users(username_filter=username_filter)
+        users = self.user_repository.get_users(username_filter)
         users_list = []
         for user in users:
             curr_id = user.id
 
             curr_name = user.name
             curr_group_id = user.group_id
-            group = self.user_repository.get_single_group(curr_group_id)
-            curr_group_name = group.name if group else None
+            if curr_group_id:
+                group = self.group_service.get_single_group(curr_group_id)
+                curr_group_name = group.name
+            else:
+                curr_group_name = None
 
             curr_creator = user.creator
             curr_createdTime = user.createdTime
