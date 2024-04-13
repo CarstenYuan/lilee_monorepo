@@ -15,16 +15,19 @@ add_user has 3 senarios:
 
 
 @patch("common.database.SessionLocal")
-def test_add_user_with_valid_group(stub_session):
+@patch("services.groups.GroupService.is_group_activated")
+def test_add_user_with_valid_group(stub_is_group_activated, stub_session):
+    # Arrange
+    stub_is_group_activated.return_value = True
     # Act
     response = client.post("/addUser", json={"name": "Alice", "group_id": 1})
     # Assert
     assert response.status_code == 200
-    # TODO: assert return body with name: Alice
+    assert response.json()["name"] == "Alice"
 
 
 @patch("common.database.SessionLocal")
-@patch("services.users.UserService.is_group_activated")
+@patch("services.groups.GroupService.is_group_activated")
 def test_add_user_with_deavtivated_group(stub_is_group_activated, stub_session):
     # Arrange
     stub_is_group_activated.return_value = False
@@ -35,7 +38,7 @@ def test_add_user_with_deavtivated_group(stub_is_group_activated, stub_session):
 
 
 @patch("common.database.SessionLocal")
-@patch("repositories.users.UserRepository.get_single_group")
+@patch("repositories.groups.GroupRepository.get_single_group")
 def test_add_user_with_inexisted_group(stub_get_single_group, stub_session):
     # Arrange
     stub_get_single_group.return_value = False
