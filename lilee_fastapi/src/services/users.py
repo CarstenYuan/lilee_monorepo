@@ -45,7 +45,40 @@ class UserService:
         )
 
     def get_all_users(self, filter):
-        return self.user_repository.get_all_users(filter=filter)
+        users = self.user_repository.get_all_users(filter=filter)
+        users_list = []
+        for user in users:
+            curr_id = user.id
+
+            curr_name = user.name
+            curr_group_id = user.group_id
+            group = self.user_repository.get_single_group(curr_group_id)
+            curr_group_name = group.name if group else None
+
+            curr_creator = user.creator
+            curr_createdTime = user.createdTime
+            curr_modifier = user.modifier
+            curr_modifiedTime = user.modifiedTime
+            curr_is_activate = user.is_activate
+
+            users_list.append(
+                {
+                'id': curr_id,
+                'name': curr_name,
+                'group_id': curr_group_id,
+                'group': curr_group_name,
+
+                'creator': curr_creator,
+                'createdTime': curr_createdTime,
+                'modifier': curr_modifier,
+                'modifiedTime': curr_modifiedTime,
+                'is_activate': curr_is_activate
+                }
+            )
+        return users_list
+
+        return users
+            
 
     def update_activate_status(self, id, is_activate):
         if not self.user_repository.get_single_user(id):
