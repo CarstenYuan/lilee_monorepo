@@ -27,12 +27,12 @@ class UserService:
         raise HTTPException(status_code=404, detail=f"Group with id {group_id} does not exist.")
 
     def delete_user(self, id):
-        if self.user_repository.get_single_user_by_id(id):
+        if self.user_repository.get_single_user(id):
             return self.user_repository.delete_user(id)
         raise HTTPException(status_code=404, detail=f"User with id {id} does not exist.")
     
     def get_single_user(self, id):
-        user = self.user_repository.get_single_user_by_id(id)
+        user = self.user_repository.get_single_user(id)
         if user:
             return user
         raise HTTPException(status_code=404, detail=f"User with id {id} does not exist.")
@@ -46,7 +46,7 @@ class UserService:
             return user
         raise HTTPException(status_code=404, detail=f"User with id {id} does not exist.")
 
-    def update_user_info(self, id, update_data: BaseModel):
+    def update_info(self, id, update_data: BaseModel):
         update_dict = update_data.dict()
         group_id = update_dict['group_id']
 
