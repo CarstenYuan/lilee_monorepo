@@ -9,9 +9,8 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 
-from src.repositories.models.base import Base
-from src.repositories.models.groups_model import Groups
-from src.repositories.models.users_model import Users
+from repositories.models.groups_model import Groups
+from repositories.models.users_model import Users
 from common.database import SessionLocal
 
 
@@ -46,7 +45,7 @@ def populate_data(db, data) -> None:
 
 
 if __name__ == "__main__":
-    with open("data/example_data.json", "r", encoding="utf-8") as f:
+    with open("populate_mock_data/mock_data.json", "r", encoding="utf-8") as f:
         fake_data = json.load(f)
 
     db_session = SessionLocal()
