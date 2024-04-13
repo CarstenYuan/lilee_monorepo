@@ -45,10 +45,10 @@ def get_single_user(id, service: UserService = Depends(get_user_service)):
 
 @users_statistic_router.get("/getAllUsers", tags=users_tag)
 def get_users(
-    filter: Optional[str] = Query(None),
+    username_filter: Optional[str] = Query(None),
     service: UserService = Depends(get_user_service),
 ):
-    return service.get_users(filter)
+    return service.get_users(username_filter)
 
 
 @users_statistic_router.put("/updateUserInfo/{id}", tags=users_tag)

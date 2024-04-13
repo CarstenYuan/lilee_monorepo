@@ -44,8 +44,8 @@ class UserService:
             status_code=404, detail=f"User with id {id} does not exist."
         )
 
-    def get_users(self, filter):
-        users = self.user_repository.get_users(filter=filter)
+    def get_users(self, username_filter):
+        users = self.user_repository.get_users(username_filter=username_filter)
         users_list = []
         for user in users:
             curr_id = user.id
