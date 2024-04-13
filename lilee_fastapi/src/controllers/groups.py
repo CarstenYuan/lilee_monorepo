@@ -50,10 +50,10 @@ def get_active_groups(service: GroupService = Depends(get_group_service)):
 
 
 @groups_statistic_router.patch("/updateIsGroupActivate/{id}", tags=groups_tag)
-def update_is_group_activate(
+def update_activate_status(
     id: int, is_activate: bool, service: GroupService = Depends(get_group_service)
 ):
-    return service.update_is_activate(id, is_activate)
+    return service.update_activate_status(id, is_activate)
 
 
 @groups_statistic_router.put("/updateGroupInfo/{id}", tags=groups_tag)

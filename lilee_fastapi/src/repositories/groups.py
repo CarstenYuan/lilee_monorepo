@@ -33,7 +33,7 @@ class GroupRepository:
     def get_active_group(self):
         return self.db.query(Groups).filter(Groups.is_activate == 1).all()
 
-    def update_is_activate(self, id, is_activate):
+    def update_activate_status(self, id, is_activate):
         group = self.get_single_group(id)
         group.is_activate = is_activate
         group.modifier = random.choice(
