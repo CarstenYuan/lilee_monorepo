@@ -10,8 +10,8 @@ alembic upgrade head
 
 sleep 5
 
-python data/populate_data.py
-
 cd src
+
+python populate_mock_data/mock_data_creator.py
 
 exec uvicorn main:app --host 0.0.0.0 --port 9000
