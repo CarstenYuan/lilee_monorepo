@@ -36,7 +36,7 @@ class GroupRepository:
     def get_active_group(self):
         return self.db.query(Groups).filter(Groups.is_activate == 1).all()
 
-    def update_info(self, id, update_data: dict):
+    def update_group(self, id, update_data: dict):
         group = self.get_single_group(id)
         group.name = update_data["name"]
         group.is_activate = update_data["is_activate"]

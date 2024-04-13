@@ -50,9 +50,9 @@ def get_active_groups(service: GroupService = Depends(get_group_service)):
 
 
 @groups_statistic_router.put("/updateGroupInfo/{id}", tags=groups_tag)
-def update_group_info(
+def update_group(
     id: int,
     update_request: UpdateGroupRequest = Body(...),
     service: GroupService = Depends(get_group_service),
 ):
-    return service.update_info(id, update_request)
+    return service.update_group(id, update_request)

@@ -41,7 +41,7 @@ class GroupService:
     def get_active_group(self):
         return self.group_repository.get_active_group()
 
-    def update_info(self, id, update_data: BaseModel):
+    def update_group(self, id, update_data: BaseModel):
         update_dict = update_data.dict()
         group = self.group_repository.get_single_group(id)
 
@@ -61,5 +61,5 @@ class GroupService:
                 has_changes = True
                 break
         if has_changes:
-            return self.group_repository.update_info(id, update_dict)
+            return self.group_repository.update_group(id, update_dict)
         return None
