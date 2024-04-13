@@ -1,13 +1,15 @@
 from pydantic import BaseModel
 from fastapi import HTTPException
 from repositories.users import UserRepository
-from repositories.groups import GroupRepository
 from repositories.models.users_model import Users
+
+from services.groups import GroupService
 
 
 class UserService:
-    def __init__(self, user_repository: UserRepository):
+    def __init__(self, user_repository: UserRepository, group_service: GroupService):
         self.user_repository = user_repository
+        self.group_service = group_service
 
     def add_user(self, user_data: BaseModel) -> Users:
         user_dict = user_data.dict()
@@ -15,21 +17,12 @@ class UserService:
 
         if group_id == 0:
             user_dict["group_id"] = None
-        if group_id and not (self.is_group_activated(group_id)):
+        if group_id and not (self.group_service.is_group_activated(group_id)):
             raise HTTPException(
                 status_code=400, detail="You cannot join a deactivated group."
             )
 
         return self.user_repository.add_user(user_dict)
-
-    def is_group_activated(self, group_id):
-        group_repository = GroupRepository()
-        group = group_repository.get_single_group(group_id)
-        if group:
-            return group.is_activate
-        raise HTTPException(
-            status_code=404, detail=f"Group with id {group_id} does not exist."
-        )
 
     def delete_user(self, id):
         if not self.user_repository.get_single_user(id):
@@ -89,7 +82,7 @@ class UserService:
             )
         if group_id == 0:
             update_dict["group_id"] = None
-        if group_id and not (self.is_group_activated(group_id)):
+        if group_id and not (self.group_service.is_group_activated(group_id)):
             raise HTTPException(
                 status_code=400, detail="You cannot join a deactivated group."
             )
@@ -102,3 +95,6 @@ class UserService:
         if has_changes:
             return self.user_repository.update_user(id, update_dict)
         return None
+
+    def has_user(self, group_id):
+        return self.user_repository.has_user(group_id)
