@@ -44,24 +44,17 @@ def get_single_user(id, service: UserService = Depends(get_user_service)):
 
 
 @users_statistic_router.get("/getAllUsers", tags=users_tag)
-def get_all_users(
-    filter: Optional[str] = Query(None),
+def get_users(
+    username_filter: Optional[str] = Query(None),
     service: UserService = Depends(get_user_service),
 ):
-    return service.get_all_users(filter)
-
-
-@users_statistic_router.patch("/updateIsUserActivate/{id}", tags=users_tag)
-def update_activate_status(
-    id: int, is_activate: bool, service: UserService = Depends(get_user_service)
-):
-    return service.update_activate_status(id, is_activate)
+    return service.get_users(username_filter)
 
 
 @users_statistic_router.put("/updateUserInfo/{id}", tags=users_tag)
-def update_user_info(
+def update_user(
     id: int,
     update_request: UpdateUserInfoRequest = Body(...),
     service: UserService = Depends(get_user_service),
 ):
-    return service.update_info(id, update_request)
+    return service.update_user(id, update_request)

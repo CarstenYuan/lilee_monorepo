@@ -5,8 +5,9 @@ from repositories.models.groups_model import Groups
 
 
 class GroupService:
-    def __init__(self, group_repository: GroupRepository):
+    def __init__(self, group_repository: GroupRepository, user_service):
         self.group_repository = group_repository
+        self.user_service = user_service
 
     def add_group(self, group_data: BaseModel) -> Groups:
         group_dict = group_data.dict()
@@ -17,15 +18,12 @@ class GroupService:
             raise HTTPException(
                 status_code=404, detail=f"Group with id {id} does not exist."
             )
-        if self.has_member(id):
+        if self.user_service.has_user(id):
             raise HTTPException(
                 status_code=400,
                 detail="Group cannot be deleted because it has members.",
             )
         return self.group_repository.delete_group(id)
-
-    def has_member(self, id):
-        return self.group_repository.has_member(id)
 
     def get_single_group(self, id):
         group = self.group_repository.get_single_group(id)
@@ -35,25 +33,10 @@ class GroupService:
             status_code=404, detail=f"Group with id {id} does not exist."
         )
 
-    def get_all_groups(self):
-        return self.group_repository.get_all_groups()
+    def get_groups(self, activated_only=False):
+        return self.group_repository.get_groups(activated_only)
 
-    def get_active_group(self):
-        return self.group_repository.get_active_group()
-
-    def update_activate_status(self, id, is_activate):
-        if not self.group_repository.get_single_group(id):
-            raise HTTPException(
-                status_code=404, detail=f"Group with id {id} does not exist."
-            )
-        if (not is_activate) and self.has_member(id):
-            raise HTTPException(
-                status_code=400,
-                detail="Group cannot be deactivated because it has members.",
-            )
-        return self.group_repository.update_activate_status(id, is_activate)
-
-    def update_info(self, id, update_data: BaseModel):
+    def update_group(self, id, update_data: BaseModel):
         update_dict = update_data.dict()
         group = self.group_repository.get_single_group(id)
 
@@ -61,7 +44,7 @@ class GroupService:
             raise HTTPException(
                 status_code=404, detail=f"Group with id {id} does not exist."
             )
-        if (not update_dict["is_activate"]) and self.has_member(id):
+        if (not update_dict["is_activate"]) and self.user_service.has_user(id):
             raise HTTPException(
                 status_code=400,
                 detail="Group cannot be deactivated because it has members.",
@@ -73,5 +56,9 @@ class GroupService:
                 has_changes = True
                 break
         if has_changes:
-            return self.group_repository.update_info(id, update_dict)
+            return self.group_repository.update_group(id, update_dict)
         return None
+
+    def is_group_activated(self, id) -> bool:
+        group = self.get_single_group(id)
+        return group.is_activate == 1

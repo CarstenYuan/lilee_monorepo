@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Body, Query
+from fastapi import APIRouter, Depends, Body
 from pydantic import BaseModel, Field
 from typing import Optional
 
@@ -41,25 +41,18 @@ def get_single_group(id: int, service: GroupService = Depends(get_group_service)
 
 @groups_statistic_router.get("/getAllGroups", tags=groups_tag)
 def get_all_groups(service: GroupService = Depends(get_group_service)):
-    return service.get_all_groups()
+    return service.get_groups()
 
 
 @groups_statistic_router.get("/getActiveGroups", tags=groups_tag)
 def get_active_groups(service: GroupService = Depends(get_group_service)):
-    return service.get_active_group()
-
-
-@groups_statistic_router.patch("/updateIsGroupActivate/{id}", tags=groups_tag)
-def update_activate_status(
-    id: int, is_activate: bool, service: GroupService = Depends(get_group_service)
-):
-    return service.update_activate_status(id, is_activate)
+    return service.get_groups(activated_only=True)
 
 
 @groups_statistic_router.put("/updateGroupInfo/{id}", tags=groups_tag)
-def update_group_info(
+def update_group(
     id: int,
     update_request: UpdateGroupRequest = Body(...),
     service: GroupService = Depends(get_group_service),
 ):
-    return service.update_info(id, update_request)
+    return service.update_group(id, update_request)
