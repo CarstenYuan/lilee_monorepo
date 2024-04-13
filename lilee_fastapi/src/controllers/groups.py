@@ -46,7 +46,7 @@ def get_all_groups(service: GroupService = Depends(get_group_service)):
 
 @groups_statistic_router.get("/getActiveGroups", tags=groups_tag)
 def get_active_groups(service: GroupService = Depends(get_group_service)):
-    return service.group_repository.get_active_group()
+    return service.get_active_group()
 
 
 @groups_statistic_router.patch("/updateIsGroupActivate/{id}", tags=groups_tag)
