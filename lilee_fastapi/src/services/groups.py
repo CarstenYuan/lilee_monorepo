@@ -3,8 +3,6 @@ from fastapi import HTTPException
 from repositories.groups import GroupRepository
 from repositories.models.groups_model import Groups
 
-# from services.users import UserService  # import this will cause a circular import
-
 
 class GroupService:
     def __init__(self, group_repository: GroupRepository, user_service):
