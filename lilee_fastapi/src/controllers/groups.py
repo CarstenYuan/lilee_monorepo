@@ -45,15 +45,15 @@ def get_all_groups(service: GroupService = Depends(get_group_service)):
 
 
 @groups_statistic_router.get("/getActiveGroups", tags=groups_tag)
-def get_active_groups():
-    pass
+def get_active_groups(service: GroupService = Depends(get_group_service)):
+    return service.group_repository.get_active_group()
 
 
 @groups_statistic_router.patch("/updateIsGroupActivate/{id}", tags=groups_tag)
 def update_is_group_activate(
     id: int, is_activate: bool, service: GroupService = Depends(get_group_service)
 ):
-    pass
+    return service.update_is_activate(id, is_activate)
 
 
 @groups_statistic_router.put("/updateGroupInfo/{id}", tags=groups_tag)
@@ -62,4 +62,4 @@ def update_group_info(
     update_request: UpdateGroupRequest = Body(...),
     service: GroupService = Depends(get_group_service),
 ):
-    pass
+    return service.update_info(id, update_request)
