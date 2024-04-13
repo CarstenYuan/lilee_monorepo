@@ -23,7 +23,7 @@ def populate_data(db, data) -> None:
     db.commit()
 
     # deactivated the group Meditation
-    group = db_session.query(Groups).filter(Groups.id == 20).one_or_none()
+    group = db.query(Groups).filter(Groups.id == 20).one_or_none()
     group.is_activate = False
     group.modifier = random.choice(
         ["Alice", "Bob", "Charlie", "David", "Eve"]
@@ -31,7 +31,7 @@ def populate_data(db, data) -> None:
     db.commit()
 
     # add users and assign a group or none to them
-    groups = db_session.query(Groups).filter(Groups.is_activate == 1).all()
+    groups = db.query(Groups).filter(Groups.is_activate == 1).all()
     assign_none = [random.randint(0, len(data["users"]) - 1) for _ in range(20)]
 
     for i, user in enumerate(data["users"]):
@@ -39,6 +39,7 @@ def populate_data(db, data) -> None:
         new_user = Users(name=user, group=group, creator=random.choice(creators))
         db.add(new_user)
     db.commit()
+
 
     print("Successfully populated data!")
     db.close()
