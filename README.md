@@ -1,6 +1,6 @@
 ## This is a Python web server demonstration using FastAPI ,MySQL, and Vue
 
-### Prerequisites:
+### Prerequisites
 - Have Docker installed and running
 - Port 3308 isn't occupied yet, otherwise, you'll need to change the port for 'mysqlDB' inside the docker-compose.yml file
 
