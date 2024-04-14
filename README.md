@@ -28,7 +28,7 @@ docker-compose up -d
 
 ---
 ### Unittest
-[Steps on how to run pytest for my APIs (README.md in lilee_monorepo/lilee_fastapi folder)](https://github.com/CarstenYuan/lilee_monorepo/tree/main/lilee_fastapi)
+[Steps on how to run tests for my APIs (README.md in lilee_monorepo/lilee_fastapi folder)](https://github.com/CarstenYuan/lilee_monorepo/tree/main/lilee_fastapi)
 
 ---
 ### Functionalities
