@@ -1,14 +1,16 @@
 from pydantic import BaseModel
 from fastapi import HTTPException
 from repositories.users import UserRepository
+from repositories.groups import GroupRepository
 from repositories.models.users_model import Users
-from services.groups import GroupService
 
 
 class UserService:
-    def __init__(self, user_repository: UserRepository, group_service: GroupService):
+    def __init__(
+        self, user_repository: UserRepository, group_repository: GroupRepository
+    ):
         self.user_repository = user_repository
-        self.group_service = group_service
+        self.group_repository = group_repository
 
     def add_user(self, user_data: BaseModel) -> Users:
         user_dict = user_data.dict()
@@ -16,10 +18,16 @@ class UserService:
 
         if group_id == 0:
             user_dict["group_id"] = None
-        if group_id and not (self.group_service.is_group_activated(group_id)):
-            raise HTTPException(
-                status_code=400, detail="You cannot join a deactivated group."
-            )
+        if group_id:
+            group = self.group_repository.get_single_group(group_id)
+            if not group:
+                raise HTTPException(
+                    status_code=404, detail=f"Group with id {group_id} does not exist."
+                )
+            elif group.is_activate != 1:
+                raise HTTPException(
+                    status_code=400, detail="You cannot join a deactivated group."
+                )
 
         return self.user_repository.add_user(user_dict)
 
@@ -47,7 +55,7 @@ class UserService:
             curr_name = user.name
             curr_group_id = user.group_id
             if curr_group_id:
-                group = self.group_service.get_single_group(curr_group_id)
+                group = self.group_repository.get_single_group(curr_group_id)
                 curr_group_name = group.name
             else:
                 curr_group_name = None
@@ -84,10 +92,16 @@ class UserService:
             )
         if group_id == 0:
             update_dict["group_id"] = None
-        if group_id and not (self.group_service.is_group_activated(group_id)):
-            raise HTTPException(
-                status_code=400, detail="You cannot join a deactivated group."
-            )
+        if group_id:
+            group = self.group_repository.get_single_group(group_id)
+            if not group:
+                raise HTTPException(
+                    status_code=404, detail=f"Group with id {group_id} does not exist."
+                )
+            elif group.is_activate != 1:
+                raise HTTPException(
+                    status_code=400, detail="You cannot join a deactivated group."
+                )
 
         has_changes = False
         for column, new_value in update_dict.items():
@@ -97,6 +111,3 @@ class UserService:
         if has_changes:
             return self.user_repository.update_user(id, update_dict)
         return None
-
-    def has_user(self, group_id):
-        return self.user_repository.has_user(group_id)
