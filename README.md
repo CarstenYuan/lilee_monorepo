@@ -2,17 +2,21 @@
 ### Functionalities
 #### APIs
 - User Management
-    - Create User: add a new user
-    - Delete User: Remove a user by id
-    - Read Single User: Retrieve details of a specific user by id.
-    - Read All Users: List all users with optional filtering by partial name match.
-    - Update User: To update a user's name, group_id, or is_activate
+    - Create User: Add a new user.
+    - Delete User: Remove a user by id.
+    - Read Single User: Get details of a specific user by id.
+    - Read All Users: List all users with an optional name filter.
+
 - Groups Management
     - Create Group: Add a new group.
     - Delete Group: Remove a group by id. Prevent deletion if the group has at least one user and provide an appropriate error message.
-    - Read Single Group: Retrieve details of a specific group by id.
+    - Read Single Group: Get details of a specific group by id.
     - Read All Groups: List all groups.
-    - Update Group: To update a group's name or is_activate
+
+- **NOT** in project requirements, but implementing them for a better experience with Vue
+    - Update User: To update a user's name, group_id, or is_activate status.
+    - Get Active Groups: Get all the groups with True on is_activate status.
+    - Update Group: To update a group's name or is_activate status.
 ---
 ### Database Design
 #### Users Table
@@ -45,11 +49,12 @@
 ```
 - When you run docker-compose, it will populate 20 groups and 90 users.
 ---
-### Testing
+### Test Funcitonalities
 #### Using FastAPI's swagger
-[Test steps on FastAPI's swagger for Lilee project](https://docs.google.com/document/d/1wrQXcUyLsucOAMaBRd_eFOyPEB4xaptl4ITwmUukbWw/edit?usp=sharing)
+[Tests on FastAPI's swagger for Lilee project (Google Doc)](https://docs.google.com/document/d/1wrQXcUyLsucOAMaBRd_eFOyPEB4xaptl4ITwmUukbWw/edit?usp=sharing)
 
 #### Using Vue website
-```
-Pending link to a file
-```
+[Tests on Vue web page for Lilee project (Google Doc)](https://docs.google.com/document/d/1a9OkUvqk4BWjV08H2m1gKLXe-Gu8pmVkTjMyInvnzhY/edit?usp=sharing)
+
+#### Pytest
+[Steps on how to run pytest for my APIs (README.md)](https://github.com/CarstenYuan/lilee_monorepo/tree/main/lilee_fastapi)
