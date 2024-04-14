@@ -42,12 +42,12 @@
 ```
 # git clone this repository
 > git clone [https://github.com/CarstenYuan/lilee_fastapi.git](https://github.com/CarstenYuan/lilee_monorepo.git)
-> cd lilee_fastapi
+> cd lilee_monorepo
 
 # run docker-compose.yml
 > docker-compose up -d
 ```
-- When you run docker-compose, it will populate 20 groups and 90 users as mock data.
+- When you run docker-compose, it will populate 20 groups and 90 users as mock data for easier testing.
 ---
 ### Test Funcitonalities
 #### Using FastAPI's swagger
