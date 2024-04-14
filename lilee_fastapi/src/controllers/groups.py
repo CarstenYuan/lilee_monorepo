@@ -49,6 +49,7 @@ def get_active_groups(service: GroupService = Depends(get_group_service)):
     return service.get_groups(activated_only=True)
 
 
+# TODO: modify api route here and vue's
 @groups_statistic_router.put("/updateGroupInfo/{id}", tags=groups_tag)
 def update_group(
     id: int,

@@ -43,6 +43,7 @@ def get_single_user(id, service: UserService = Depends(get_user_service)):
     return service.get_single_user(id)
 
 
+# TODO: modify api route here and vue's
 @users_statistic_router.get("/getAllUsers", tags=users_tag)
 def get_users(
     username_filter: Optional[str] = Query(None),
@@ -51,6 +52,7 @@ def get_users(
     return service.get_users(username_filter)
 
 
+# TODO: modify api route here and vue's
 @users_statistic_router.put("/updateUserInfo/{id}", tags=users_tag)
 def update_user(
     id: int,
