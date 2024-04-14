@@ -1,5 +1,5 @@
 ## I use pytest to test my APIs and will provide steps for both Windows and macOS
-### Prerequisites:
+### Prerequisites
 - Have Python version 3.11 installed
 ---
 ### On Windows
