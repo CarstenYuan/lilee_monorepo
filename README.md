@@ -57,4 +57,4 @@
 [Tests on Vue web page for Lilee project (Google Doc)](https://docs.google.com/document/d/1a9OkUvqk4BWjV08H2m1gKLXe-Gu8pmVkTjMyInvnzhY/edit?usp=sharing)
 
 #### Pytest
-[Steps on how to run pytest for my APIs (README.md)](https://github.com/CarstenYuan/lilee_monorepo/tree/main/lilee_fastapi)
+[Steps on how to run pytest for my APIs (README.md in lilee_fastapi folder)](https://github.com/CarstenYuan/lilee_monorepo/tree/main/lilee_fastapi)
