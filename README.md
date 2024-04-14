@@ -47,7 +47,7 @@
 # run docker-compose.yml
 > docker-compose up -d
 ```
-- When you run docker-compose, it will populate 20 groups and 90 users.
+- When you run docker-compose, it will populate 20 groups and 90 users as mock data.
 ---
 ### Test Funcitonalities
 #### Using FastAPI's swagger
