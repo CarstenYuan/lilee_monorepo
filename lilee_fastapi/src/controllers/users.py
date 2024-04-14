@@ -10,11 +10,13 @@ users_statistic_router = APIRouter()
 users_tag = ["Users APIs"]
 
 
+# TODO: Move this class to controllers/models/users_model.py
 class AddUserRequest(BaseModel):
     name: str = Field(..., description="The new name of the user.")
     group_id: Optional[int] = Field(None, description="The new group ID of the user.")
 
 
+# TODO: Move this class to controllers/models/users_model.py
 class UpdateUserInfoRequest(BaseModel):
     name: str = Field(None, description="The updated name of the user.")
     group_id: Optional[int] = Field(

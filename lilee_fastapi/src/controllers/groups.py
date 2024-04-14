@@ -10,10 +10,12 @@ groups_statistic_router = APIRouter()
 groups_tag = ["Groups APIs"]
 
 
+# TODO: Move this class to controllers/models/groups_model.py
 class AddGroupRequest(BaseModel):
     name: str = Field(description="The new name of the group.")
 
 
+# TODO: Move this class to controllers/models/groups_model.py
 class UpdateGroupRequest(BaseModel):
     name: Optional[str] = Field(None, description="The new name of the group.")
     is_activate: Optional[bool] = Field(
