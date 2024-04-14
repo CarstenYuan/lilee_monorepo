@@ -1,4 +1,29 @@
 ## This is a Python web server demonstration using FastAPI ,MySQL, and Vue
+### Launch services
+#### Prerequisites:
+- Have Docker installed and running
+- Port 3308 isn't occupied yet, otherwise, you'll need to change the port for 'mysqlDB' inside the docker-compose.yml file
+```
+# git clone this repository
+> git clone [https://github.com/CarstenYuan/lilee_fastapi.git](https://github.com/CarstenYuan/lilee_monorepo.git)
+> cd lilee_monorepo
+
+# run docker-compose.yml
+> docker-compose up -d
+```
+- When you run docker-compose, it will populate 20 groups and 90 users as mock data for easier testing.
+---
+### Test Funcitonalities
+#### Using FastAPI's swagger
+[Tests on FastAPI's swagger for Lilee project (Google Doc)](https://docs.google.com/document/d/1wrQXcUyLsucOAMaBRd_eFOyPEB4xaptl4ITwmUukbWw/edit?usp=sharing)
+
+#### Using Vue website
+[Tests on Vue web page for Lilee project (Google Doc)](https://docs.google.com/document/d/1a9OkUvqk4BWjV08H2m1gKLXe-Gu8pmVkTjMyInvnzhY/edit?usp=sharing)
+
+#### Unittest
+[Steps on how to run pytest for my APIs (README.md in lilee_monorepo/lilee_fastapi folder)](https://github.com/CarstenYuan/lilee_monorepo/tree/main/lilee_fastapi)
+
+---
 ### Functionalities
 #### APIs
 - User Management
@@ -34,27 +59,3 @@
 | 3      | Emma Williams      | 0          | Devin   | 2024-04-11 12:00:00| Yao     | 2024-04-12 12:30:00|
 
 - Relationship: A user can belong to zero or one group; a group can have zero or many users.
----
-### Launch services
-#### Prerequisites:
-- Have Docker installed and running
-- Port 3308 isn't occupied yet, otherwise, you'll need to change the port for 'mysqlDB' inside the docker-compose.yml file
-```
-# git clone this repository
-> git clone [https://github.com/CarstenYuan/lilee_fastapi.git](https://github.com/CarstenYuan/lilee_monorepo.git)
-> cd lilee_monorepo
-
-# run docker-compose.yml
-> docker-compose up -d
-```
-- When you run docker-compose, it will populate 20 groups and 90 users as mock data for easier testing.
----
-### Test Funcitonalities
-#### Using FastAPI's swagger
-[Tests on FastAPI's swagger for Lilee project (Google Doc)](https://docs.google.com/document/d/1wrQXcUyLsucOAMaBRd_eFOyPEB4xaptl4ITwmUukbWw/edit?usp=sharing)
-
-#### Using Vue website
-[Tests on Vue web page for Lilee project (Google Doc)](https://docs.google.com/document/d/1a9OkUvqk4BWjV08H2m1gKLXe-Gu8pmVkTjMyInvnzhY/edit?usp=sharing)
-
-#### Pytest
-[Steps on how to run pytest for my APIs (README.md in lilee_fastapi folder)](https://github.com/CarstenYuan/lilee_monorepo/tree/main/lilee_fastapi)
