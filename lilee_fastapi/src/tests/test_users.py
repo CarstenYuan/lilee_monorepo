@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from main import app
 
 
@@ -15,10 +15,12 @@ add_user has 3 senarios:
 
 
 @patch("common.database.SessionLocal")
-@patch("services.groups.GroupService.is_group_activated")
-def test_add_user_with_valid_group(stub_is_group_activated, stub_session):
+@patch("repositories.groups.GroupRepository.get_single_group")
+def test_add_user_with_valid_group(stub_get_single_group, stub_session):
     # Arrange
-    stub_is_group_activated.return_value = True
+    mock_group = MagicMock()
+    mock_group.is_activate = True
+    stub_get_single_group.return_value = mock_group
     # Act
     response = client.post("/addUser", json={"name": "Alice", "group_id": 1})
     # Assert
@@ -27,10 +29,12 @@ def test_add_user_with_valid_group(stub_is_group_activated, stub_session):
 
 
 @patch("common.database.SessionLocal")
-@patch("services.groups.GroupService.is_group_activated")
-def test_add_user_with_deavtivated_group(stub_is_group_activated, stub_session):
+@patch("repositories.groups.GroupRepository.get_single_group")
+def test_add_user_with_deavtivated_group(stub_get_single_group, stub_session):
     # Arrange
-    stub_is_group_activated.return_value = False
+    mock_group = MagicMock()
+    mock_group.is_activate = False
+    stub_get_single_group.return_value = mock_group
     # Act
     response = client.post("/addUser", json={"name": "Alice", "group_id": 22})
     # Assert
@@ -41,7 +45,7 @@ def test_add_user_with_deavtivated_group(stub_is_group_activated, stub_session):
 @patch("repositories.groups.GroupRepository.get_single_group")
 def test_add_user_with_inexisted_group(stub_get_single_group, stub_session):
     # Arrange
-    stub_get_single_group.return_value = False
+    stub_get_single_group.return_value = None
     # Act
     response = client.post("/addUser", json={"name": "Alice", "group_id": 100})
     # Assert
