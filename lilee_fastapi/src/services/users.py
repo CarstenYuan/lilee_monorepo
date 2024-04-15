@@ -50,33 +50,18 @@ class UserService:
         users = self.user_repository.get_users(username_filter)
         users_list = []
         for user in users:
-            curr_id = user.id
-
-            curr_name = user.name
-            curr_group_id = user.group_id
-            if curr_group_id:
-                group = self.group_repository.get_single_group(curr_group_id)
-                curr_group_name = group.name
-            else:
-                curr_group_name = None
-
-            curr_creator = user.creator
-            curr_createdTime = user.createdTime
-            curr_modifier = user.modifier
-            curr_modifiedTime = user.modifiedTime
-            curr_is_activate = user.is_activate
-
+            # users: (1, 'Olivia Smith', True, None, 'Admin', datetime.datetime(2024, 4, 15, 12, 6, 17), None, None, None)
             users_list.append(
                 {
-                    "id": curr_id,
-                    "name": curr_name,
-                    "group_id": curr_group_id,
-                    "group": curr_group_name,
-                    "creator": curr_creator,
-                    "createdTime": curr_createdTime,
-                    "modifier": curr_modifier,
-                    "modifiedTime": curr_modifiedTime,
-                    "is_activate": curr_is_activate,
+                    "id": user[0],
+                    "name": user[1],
+                    "group_id": user[2],
+                    "is_activate": user[3],
+                    "creator": user[4],
+                    "createdTime": user[5],
+                    "modifier": user[6],
+                    "modifiedTime": user[7],
+                    "group": user[8]
                 }
             )
         return users_list

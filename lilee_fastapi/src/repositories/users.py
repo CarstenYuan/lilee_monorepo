@@ -1,6 +1,7 @@
 import random
 from sqlalchemy.orm import Session
 from repositories.models.users_model import Users
+from repositories.models.groups_model import Groups
 
 
 class UserRepository:
@@ -27,7 +28,17 @@ class UserRepository:
         return self.db.query(Users).filter(Users.id == id).one_or_none()
 
     def get_users(self, username_filter: str = None):
-        query = self.db.query(Users)
+        query = self.db.query(
+            Users.id,
+            Users.name,
+            Users.group_id,
+            Users.is_activate,
+            Users.creator,
+            Users.createdTime,
+            Users.modifier,
+            Users.modifiedTime,
+            Groups.name.label("group"),
+        ).outerjoin(Groups, Users.group_id == Groups.id)
         if username_filter:
             query = query.filter(Users.name.like(f"%{username_filter}%"))
         return query.all()
