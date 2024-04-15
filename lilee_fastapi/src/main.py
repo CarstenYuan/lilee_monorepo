@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from controllers.users import users_statistic_router
 from controllers.groups import groups_statistic_router
-# TODO: fix pyline errors
+# TODO: fix pylint errors
 
 app = FastAPI(title='LiLee Web Server APIs', docs_url='/swagger')
 app.include_router(users_statistic_router)
