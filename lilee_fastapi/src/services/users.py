@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from fastapi import HTTPException
-from repositories.users import UserRepository
-from repositories.groups import GroupRepository
-from repositories.models.users_model import Users
+from ..repositories.users import UserRepository
+from ..repositories.groups import GroupRepository
+from ..repositories.models.users_model import Users
 
 
 class UserService:
@@ -31,19 +31,19 @@ class UserService:
 
         return self.user_repository.add_user(user_dict)
 
-    def delete_user(self, id):
-        if not self.user_repository.get_single_user(id):
+    def delete_user(self, user_id):
+        if not self.user_repository.get_single_user(user_id):
             raise HTTPException(
-                status_code=404, detail=f"User with id {id} does not exist."
+                status_code=404, detail=f"User with id {user_id} does not exist."
             )
-        return self.user_repository.delete_user(id)
+        return self.user_repository.delete_user(user_id)
 
-    def get_single_user(self, id):
-        user = self.user_repository.get_single_user(id)
+    def get_single_user(self, user_id):
+        user = self.user_repository.get_single_user(user_id)
         if user:
             return user
         raise HTTPException(
-            status_code=404, detail=f"User with id {id} does not exist."
+            status_code=404, detail=f"User with id {user_id} does not exist."
         )
 
     def get_users(self, username_filter):
@@ -61,9 +61,9 @@ class UserService:
                 curr_group_name = None
 
             curr_creator = user.creator
-            curr_createdTime = user.createdTime
+            curr_created_time = user.createdTime
             curr_modifier = user.modifier
-            curr_modifiedTime = user.modifiedTime
+            curr_modified_time = user.modifiedTime
             curr_is_activate = user.is_activate
 
             users_list.append(
@@ -73,22 +73,22 @@ class UserService:
                     "group_id": curr_group_id,
                     "group": curr_group_name,
                     "creator": curr_creator,
-                    "createdTime": curr_createdTime,
+                    "createdTime": curr_created_time,
                     "modifier": curr_modifier,
-                    "modifiedTime": curr_modifiedTime,
+                    "modifiedTime": curr_modified_time,
                     "is_activate": curr_is_activate,
                 }
             )
         return users_list
 
-    def update_user(self, id, update_data: BaseModel):
+    def update_user(self, user_id, update_data: BaseModel):
         update_dict = update_data.dict()
         group_id = update_dict["group_id"]
-        user = self.user_repository.get_single_user(id)
+        user = self.user_repository.get_single_user(user_id)
 
         if not user:
             raise HTTPException(
-                status_code=404, detail=f"User with id {id} does not exist."
+                status_code=404, detail=f"User with id {user_id} does not exist."
             )
         if group_id == 0:
             update_dict["group_id"] = None
