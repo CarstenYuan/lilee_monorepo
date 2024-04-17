@@ -1,6 +1,6 @@
 import random
 from sqlalchemy.orm import Session
-from repositories.models.groups_model import Groups
+from .models.groups_model import Groups
 
 
 class GroupRepository:
@@ -17,22 +17,22 @@ class GroupRepository:
         self.db.refresh(new_group)
         return new_group
 
-    def delete_group(self, id):
-        group = self.get_single_group(id)
+    def delete_group(self, group_id):
+        group = self.get_single_group(group_id)
         self.db.delete(group)
         self.db.commit()
         return group
 
-    def get_single_group(self, id):
-        return self.db.query(Groups).filter(Groups.id == id).one_or_none()
+    def get_single_group(self, group_id):
+        return self.db.query(Groups).filter(Groups.id == group_id).one_or_none()
 
     def get_groups(self, activated_only):
         if activated_only:
             return self.db.query(Groups).filter(Groups.is_activate == 1).all()
         return self.db.query(Groups).all()
 
-    def update_group(self, id, update_data: dict):
-        group = self.get_single_group(id)
+    def update_group(self, group_id, update_data: dict):
+        group = self.get_single_group(group_id)
         group.name = update_data["name"]
         group.is_activate = update_data["is_activate"]
         group.modifier = random.choice(
