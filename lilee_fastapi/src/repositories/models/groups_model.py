@@ -9,7 +9,6 @@ class Groups(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
     is_activate = Column(Boolean, default=True)
-    
     creator = Column(String(255))
     createdTime = Column(DateTime, default=func.now())
     modifier = Column(String(255))
