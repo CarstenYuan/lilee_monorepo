@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from fastapi import HTTPException
-from repositories.users import UserRepository
-from repositories.groups import GroupRepository
-from repositories.models.groups_model import Groups
+from ..repositories.users import UserRepository
+from ..repositories.groups import GroupRepository
+from ..repositories.models.groups_model import Groups
 
 
 class GroupService:
@@ -16,38 +16,38 @@ class GroupService:
         group_dict = group_data.dict()
         return self.group_repository.add_group(group_dict)
 
-    def delete_group(self, id):
-        if not self.group_repository.get_single_group(id):
+    def delete_group(self, group_id):
+        if not self.group_repository.get_single_group(group_id):
             raise HTTPException(
-                status_code=404, detail=f"Group with id {id} does not exist."
+                status_code=404, detail=f"Group with id {group_id} does not exist."
             )
-        if self.user_repository.has_user(id):
+        if self.user_repository.has_user(group_id):
             raise HTTPException(
                 status_code=400,
                 detail="Group cannot be deleted because it has members.",
             )
-        return self.group_repository.delete_group(id)
+        return self.group_repository.delete_group(group_id)
 
-    def get_single_group(self, id):
-        group = self.group_repository.get_single_group(id)
+    def get_single_group(self, group_id):
+        group = self.group_repository.get_single_group(group_id)
         if group:
             return group
         raise HTTPException(
-            status_code=404, detail=f"Group with id {id} does not exist."
+            status_code=404, detail=f"Group with id {group_id} does not exist."
         )
 
     def get_groups(self, activated_only=False):
         return self.group_repository.get_groups(activated_only)
 
-    def update_group(self, id, update_data: BaseModel):
+    def update_group(self, group_id, update_data: BaseModel):
         update_dict = update_data.dict()
-        group = self.group_repository.get_single_group(id)
+        group = self.group_repository.get_single_group(group_id)
 
         if not group:
             raise HTTPException(
-                status_code=404, detail=f"Group with id {id} does not exist."
+                status_code=404, detail=f"Group with id {group_id} does not exist."
             )
-        if (not update_dict["is_activate"]) and self.user_repository.has_user(id):
+        if (not update_dict["is_activate"]) and self.user_repository.has_user(group_id):
             raise HTTPException(
                 status_code=400,
                 detail="Group cannot be deactivated because it has members.",
