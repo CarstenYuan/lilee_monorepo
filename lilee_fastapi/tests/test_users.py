@@ -1,16 +1,14 @@
 from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
-from ..main import app
-
+from src.main import app
 
 client = TestClient(app)
-
 
 """
 add_user has 3 senarios:
 1. valid group > exist & activated
 2. deactivated grouop > exist but deactivated
-3. inexisted group？
+3. inexisted group
 """
 
 
