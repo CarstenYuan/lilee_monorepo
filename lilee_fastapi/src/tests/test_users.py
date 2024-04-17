@@ -1,6 +1,6 @@
 from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
-from ..src.main import app
+from ..main import app
 
 
 client = TestClient(app)
@@ -10,12 +10,12 @@ client = TestClient(app)
 add_user has 3 senarios:
 1. valid group > exist & activated
 2. deactivated grouop > exist but deactivated
-3. inexisted group
+3. inexisted group？
 """
 
 
-@patch("common.database.SessionLocal")
-@patch("repositories.groups.GroupRepository.get_single_group")
+@patch("src.common.database.SessionLocal")
+@patch("src.repositories.groups.GroupRepository.get_single_group")
 def test_add_user_with_valid_group(stub_get_single_group, _):
     # Arrange
     mock_group = MagicMock()
@@ -28,8 +28,8 @@ def test_add_user_with_valid_group(stub_get_single_group, _):
     assert response.json()["name"] == "Alice"
 
 
-@patch("common.database.SessionLocal")
-@patch("repositories.groups.GroupRepository.get_single_group")
+@patch("src.common.database.SessionLocal")
+@patch("src.repositories.groups.GroupRepository.get_single_group")
 def test_add_user_with_deavtivated_group(stub_get_single_group, _):
     # Arrange
     mock_group = MagicMock()
@@ -41,8 +41,8 @@ def test_add_user_with_deavtivated_group(stub_get_single_group, _):
     assert response.status_code == 400
 
 
-@patch("common.database.SessionLocal")
-@patch("repositories.groups.GroupRepository.get_single_group")
+@patch("src.common.database.SessionLocal")
+@patch("src.repositories.groups.GroupRepository.get_single_group")
 def test_add_user_with_inexisted_group(stub_get_single_group, _):
     # Arrange
     stub_get_single_group.return_value = None
