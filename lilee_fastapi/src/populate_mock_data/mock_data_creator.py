@@ -1,17 +1,9 @@
-import os
-import sys
 import json
 import random
 
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
-
-from repositories.models.groups_model import Groups
-from repositories.models.users_model import Users
-from common.database import SessionLocal
+from ..repositories.models.groups_model import Groups
+from ..repositories.models.users_model import Users
+from ..common.database import SessionLocal
 
 
 def populate_data(db, data) -> None:
@@ -39,7 +31,6 @@ def populate_data(db, data) -> None:
         new_user = Users(name=user, group=group, creator=random.choice(creators))
         db.add(new_user)
     db.commit()
-
 
     print("Successfully populated data!")
     db.close()
