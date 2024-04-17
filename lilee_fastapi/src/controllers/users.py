@@ -1,9 +1,9 @@
+from typing import Optional
 from fastapi import APIRouter, Depends, Body, Query
 from pydantic import BaseModel, Field
-from typing import Optional
 
-from services.users import UserService
-from common.dependencies import get_user_service
+from ..services.users import UserService
+from ..common.dependencies import get_user_service
 
 
 users_statistic_router = APIRouter()
@@ -36,13 +36,13 @@ def add_user(
 
 
 @users_statistic_router.delete("/deleteUser/{id}", tags=users_tag)
-def delete_user(id, service: UserService = Depends(get_user_service)):
-    return service.delete_user(id)
+def delete_user(user_id, service: UserService = Depends(get_user_service)):
+    return service.delete_user(user_id)
 
 
 @users_statistic_router.get("/getSingleUser/{id}", tags=users_tag)
-def get_single_user(id, service: UserService = Depends(get_user_service)):
-    return service.get_single_user(id)
+def get_single_user(user_id, service: UserService = Depends(get_user_service)):
+    return service.get_single_user(user_id)
 
 
 # TODO: modify api route here and vue's
@@ -57,8 +57,8 @@ def get_users(
 # TODO: modify api route here and vue's
 @users_statistic_router.put("/updateUserInfo/{id}", tags=users_tag)
 def update_user(
-    id: int,
+    user_id: int,
     update_request: UpdateUserInfoRequest = Body(...),
     service: UserService = Depends(get_user_service),
 ):
-    return service.update_user(id, update_request)
+    return service.update_user(user_id, update_request)
