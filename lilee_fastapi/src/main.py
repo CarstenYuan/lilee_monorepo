@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from uvicorn import run as uvicorn_run
 from fastapi.middleware.cors import CORSMiddleware
+from uvicorn import run as uvicorn_run
 
-from controllers.users import users_statistic_router
-from controllers.groups import groups_statistic_router
+from .controllers.users import users_statistic_router
+from .controllers.groups import groups_statistic_router
 # TODO: fix pylint errors
 
 app = FastAPI(title='LiLee Web Server APIs', docs_url='/swagger')
