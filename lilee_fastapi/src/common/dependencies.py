@@ -1,10 +1,10 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from common.database import get_session
-from repositories.users import UserRepository
-from repositories.groups import GroupRepository
-from services.users import UserService
-from services.groups import GroupService
+from .database import get_session
+from ..repositories.users import UserRepository
+from ..repositories.groups import GroupRepository
+from ..services.users import UserService
+from ..services.groups import GroupService
 
 
 def get_user_service(db: Session = Depends(get_session)) -> UserService:
