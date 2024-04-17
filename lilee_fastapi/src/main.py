@@ -4,17 +4,13 @@ from uvicorn import run as uvicorn_run
 
 from .controllers.users import users_statistic_router
 from .controllers.groups import groups_statistic_router
-# TODO: fix pylint errors
 
-app = FastAPI(title='LiLee Web Server APIs', docs_url='/swagger')
+
+app = FastAPI(title="LiLee Web Server APIs", docs_url="/swagger")
 app.include_router(users_statistic_router)
 app.include_router(groups_statistic_router)
 
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-    "http://127.0.0.1:8080"
-]
+origins = ["http://localhost", "http://localhost:8080", "http://127.0.0.1:8080"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,5 +21,5 @@ app.add_middleware(
 )
 
 
-if __name__ == '__main__':
-    uvicorn_run('main:app', host='0.0.0.0', port=9000, reload=True)
+if __name__ == "__main__":
+    uvicorn_run("main:app", host="0.0.0.0", port=9000, reload=True)
