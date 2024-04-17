@@ -1,6 +1,6 @@
-from fastapi.testclient import TestClient
 from unittest.mock import patch, MagicMock
-from main import app
+from fastapi.testclient import TestClient
+from ..src.main import app
 
 
 client = TestClient(app)
@@ -16,7 +16,7 @@ add_user has 3 senarios:
 
 @patch("common.database.SessionLocal")
 @patch("repositories.groups.GroupRepository.get_single_group")
-def test_add_user_with_valid_group(stub_get_single_group, stub_session):
+def test_add_user_with_valid_group(stub_get_single_group, _):
     # Arrange
     mock_group = MagicMock()
     mock_group.is_activate = True
@@ -30,7 +30,7 @@ def test_add_user_with_valid_group(stub_get_single_group, stub_session):
 
 @patch("common.database.SessionLocal")
 @patch("repositories.groups.GroupRepository.get_single_group")
-def test_add_user_with_deavtivated_group(stub_get_single_group, stub_session):
+def test_add_user_with_deavtivated_group(stub_get_single_group, _):
     # Arrange
     mock_group = MagicMock()
     mock_group.is_activate = False
@@ -43,7 +43,7 @@ def test_add_user_with_deavtivated_group(stub_get_single_group, stub_session):
 
 @patch("common.database.SessionLocal")
 @patch("repositories.groups.GroupRepository.get_single_group")
-def test_add_user_with_inexisted_group(stub_get_single_group, stub_session):
+def test_add_user_with_inexisted_group(stub_get_single_group, _):
     # Arrange
     stub_get_single_group.return_value = None
     # Act
