@@ -1,6 +1,6 @@
 import random
 from sqlalchemy.orm import Session
-from repositories.models.users_model import Users
+from ..repositories.models.users_model import Users
 
 
 class UserRepository:
@@ -17,14 +17,14 @@ class UserRepository:
         self.db.refresh(new_user)
         return new_user
 
-    def delete_user(self, id):
-        user = self.get_single_user(id)
+    def delete_user(self, user_id):
+        user = self.get_single_user(user_id)
         self.db.delete(user)
         self.db.commit()
         return user
 
-    def get_single_user(self, id):
-        return self.db.query(Users).filter(Users.id == id).one_or_none()
+    def get_single_user(self, user_id):
+        return self.db.query(Users).filter(Users.id == user_id).one_or_none()
 
     def get_users(self, username_filter: str = None):
         query = self.db.query(Users)
@@ -32,8 +32,8 @@ class UserRepository:
             query = query.filter(Users.name.like(f"%{username_filter}%"))
         return query.all()
 
-    def update_user(self, id, update_data: dict):
-        user = self.get_single_user(id)
+    def update_user(self, user_id, update_data: dict):
+        user = self.get_single_user(user_id)
         user.name = update_data["name"]
         user.group_id = update_data["group_id"]
         user.is_activate = update_data["is_activate"]
